@@ -3,6 +3,7 @@ using Ascon.Pilot.SDK.Menu;
 using Ascon.Pilot.Theme.Controls;
 using PilotModule.ViewModels;
 using PilotModule.Views;
+using System;
 using System.ComponentModel.Composition;
 using System.Windows;
 
@@ -26,16 +27,21 @@ namespace PilotModule.Plugins
         {
             if (name == SHOW_ICONS)
             {
-                var iconsView = new IconsView();
-
-                iconsView.DataContext = new IconsViewModel();
-
-                var baseWindow = new DialogWindow();
-                baseWindow.Content = iconsView;
-                baseWindow.Title = "Иконки Icons";
-
-                baseWindow.ShowDialog();
+                ShowIconWindow();
             }
+        }
+
+        public void ShowIconWindow()
+        {
+            var iconsView = new IconsView();
+
+            iconsView.DataContext = new IconsViewModel();
+
+            var baseWindow = new DialogWindow();
+            baseWindow.Content = iconsView;
+            baseWindow.Title = "Иконки Icons";
+
+            baseWindow.ShowDialog();
         }
     }
 }
