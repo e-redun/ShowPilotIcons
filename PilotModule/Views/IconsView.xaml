@@ -5,15 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:icons="clr-namespace:Ascon.Pilot.Theme;assembly=Ascon.Pilot.Theme"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="400">
-    <Grid>
-        <ItemsControl ItemsSource="{Binding FilteredIcons}">
+             d:DesignHeight="350" d:DesignWidth="400"
+             Name="This"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Ascon.Pilot.Theme;component/themes/standardcontrols.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultTextBlockStyle}">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Фильтр иконок "/>
+            <TextBlock Text="{Binding IconSize, TargetNullValue=25}"
+                       Width="50"
+                       />
+            <!--<Button Content="{Binding Source={x:Static icons:Icons.Instance.}}"-->
+        </StackPanel>
+        
+        <ItemsControl ItemsSource="{Binding FilteredIcons}"
+                      Grid.Row="1"
+                      >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Height="50"
                             Width="50"
                             ToolTip="{Binding Key}"
-                            Command="{Binding GetIconFullNameToClipboardCommand}"
+                            Command="{Binding ElementName=This, Path=DataContext.GetIconFullNameToClipboardCommand}"
                             CommandParameter="{Binding}"
                             >
                         <StackPanel Orientation="Vertical">

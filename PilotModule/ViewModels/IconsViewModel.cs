@@ -17,33 +17,20 @@ namespace PilotModule.ViewModels
 
         public IEnumerable<DictionaryEntry> FilteredIcons { get; set; }
 
-
-        private int myVar;
-
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
-
-        public Button SelectedIcon { get; set; }
-
-
         public IconsViewModel()
         {
-
             FilteredIcons = Icons.Instance.Cast<DictionaryEntry>()
                                           .Where(p => p.Value.GetType() == typeof(DrawingImage));
 
-            GetIconFullNameToClipboardCommand = new RelayCommand<Button>(GetIconFullNameToClipboard);
+            GetIconFullNameToClipboardCommand = new RelayCommand<object>(GetIconFullNameToClipboard);
         }
 
-        private void GetIconFullNameToClipboard(Button selectedIcon)
+        private void GetIconFullNameToClipboard(object obj)
         {
-            var d = (DictionaryEntry)selectedIcon.DataContext;
+            var keyValuePair = (DictionaryEntry)obj;
 
-            var text = "Icons.Instance." + d.Key;
-
+            var text = "Icons.Instance." + keyValuePair.Key;
+            
             Clipboard.SetText(text);
         }
     }
