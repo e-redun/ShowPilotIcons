@@ -5,29 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:icons="clr-namespace:Ascon.Pilot.Theme;assembly=Ascon.Pilot.Theme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="350" d:DesignWidth="400">
     <Grid>
-        <ItemsControl ItemsSource="{Binding Source={x:Static icons:Icons.Instance}}">
+        <ItemsControl ItemsSource="{Binding FilteredIcons}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <!--Content="{Binding Converter={StaticResource TestConverter}}"-->
                     <Button Height="50"
                             Width="50"
                             ToolTip="{Binding Key}"
-                            Click="GetIconFullNameToClipboard_Button_Click"
                             Command="{Binding GetIconFullNameToClipboardCommand}"
+                            CommandParameter="{Binding}"
                             >
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding Value}"/>
-                            <!--<TextBlock Text="{Binding Key}"/>-->
                         </StackPanel>
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel>
-                    </WrapPanel>
+                    <WrapPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

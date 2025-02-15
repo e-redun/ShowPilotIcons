@@ -1,7 +1,10 @@
 ﻿using Ascon.Pilot.SDK;
 using Ascon.Pilot.SDK.Menu;
 using Ascon.Pilot.Theme.Controls;
-using System.Composition;
+using PilotModule.ViewModels;
+using PilotModule.Views;
+using System.ComponentModel.Composition;
+using System.Windows;
 
 namespace PilotModule.Plugins
 {
@@ -12,8 +15,7 @@ namespace PilotModule.Plugins
 
         [ImportingConstructor]
         public MainMenuPlugin()
-        {
-        }
+        {}
 
         public void Build(IMenuBuilder builder, MainViewContext context)
         {
@@ -26,8 +28,11 @@ namespace PilotModule.Plugins
             {
                 var iconsView = new IconsView();
 
+                iconsView.DataContext = new IconsViewModel();
+
                 var baseWindow = new DialogWindow();
                 baseWindow.Content = iconsView;
+                baseWindow.Title = "Иконки Icons";
 
                 baseWindow.ShowDialog();
             }
