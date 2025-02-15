@@ -44,11 +44,18 @@
                          />
             </Border>
         </StackPanel>
-        
-        <ItemsControl ItemsSource="{Binding FilteredIcons}"
-                      Grid.Row="1"
+        <ScrollViewer Grid.Row="1"
                       Margin="0 20 0 0"
+                      CanContentScroll="True"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Padding="0"
                       >
+            
+        <ItemsControl ItemsSource="{Binding FilteredIcons}"
+                      
+                      >
+                      <!--ScrollViewer.VerticalScrollBarVisibility="Visible"-->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Height="50"
@@ -77,5 +84,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+        </ScrollViewer>
+
     </Grid>
 </UserControl>
