@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="PilotModule.Views.IconsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:icons="clr-namespace:Ascon.Pilot.Theme;assembly=Ascon.Pilot.Theme"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Source={x:Static icons:Icons.Instance}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!--Content="{Binding Converter={StaticResource TestConverter}}"-->
+                    <Button Height="50"
+                            Width="50"
+                            ToolTip="{Binding Key}"
+                            Click="GetIconFullNameToClipboard_Button_Click"
+                            Command="{Binding GetIconFullNameToClipboardCommand}"
+                            >
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding Value}"/>
+                            <!--<TextBlock Text="{Binding Key}"/>-->
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel>
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</UserControl>
