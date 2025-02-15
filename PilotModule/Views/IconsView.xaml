@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:icons="clr-namespace:Ascon.Pilot.Theme;assembly=Ascon.Pilot.Theme"
+             xmlns:conv="clr-namespace:PilotModule.Converters" 
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="400"
              Name="This"
@@ -14,9 +14,16 @@
                 <ResourceDictionary Source="/Ascon.Pilot.Theme;component/themes/standardcontrols.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <conv:IconNameToVisibilityConverter x:Key="IconNameToVisibilityConverter"/>
+            
             <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultTextBlockStyle}">
                 <Setter Property="FontSize" Value="20"/>
             </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyleBase}">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            
         </ResourceDictionary>
     </UserControl.Resources>
             <Grid>
@@ -24,16 +31,23 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    >
             <TextBlock Text="Фильтр иконок "/>
-            <TextBlock Text="{Binding IconSize, TargetNullValue=25}"
-                       Width="50"
-                       />
-            <!--<Button Content="{Binding Source={x:Static icons:Icons.Instance.}}"-->
+            
+            <Border BorderThickness="1"
+                    BorderBrush="{StaticResource BorderNormalBrush}"
+                    >
+                <TextBox Name="tbIconFilter"
+                         Width="200"
+                         />
+            </Border>
         </StackPanel>
         
         <ItemsControl ItemsSource="{Binding FilteredIcons}"
                       Grid.Row="1"
+                      Margin="0 20 0 0"
                       >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -43,6 +57,14 @@
                             Command="{Binding ElementName=This, Path=DataContext.GetIconFullNameToClipboardCommand}"
                             CommandParameter="{Binding}"
                             >
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource IconNameToVisibilityConverter}">
+                                <Binding Path="Key"/>
+                                <Binding ElementName="tbIconFilter" Path="Text"/>
+                            </MultiBinding>
+                        </Button.Visibility>
+                            <!--Visibility="{Binding ElementName=tbIconFilter, Path=Text, Converter={StaticResource IconNameToVisibilityConverter},
+                                ConverterParameter=Tooltip}"-->
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding Value}"/>
                         </StackPanel>

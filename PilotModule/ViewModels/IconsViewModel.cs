@@ -20,7 +20,9 @@ namespace PilotModule.ViewModels
         public IconsViewModel()
         {
             FilteredIcons = Icons.Instance.Cast<DictionaryEntry>()
-                                          .Where(p => p.Value.GetType() == typeof(DrawingImage));
+                                          .Where(p => p.Value.GetType() == typeof(DrawingImage))
+                                        //  .Take(1)
+                                          ;
 
             GetIconFullNameToClipboardCommand = new RelayCommand<object>(GetIconFullNameToClipboard);
         }
